@@ -15,6 +15,7 @@ import static org.apache.spark.sql.functions.count;
 public class ppcvTask {
     public static void main(String[] args) {
         SparkConf sparkConf = new SparkConf().setAppName("ppcvTask")
+                .set("spark.shuffle.service.enabled","true")
                 .set("spark.dynamicAllocation.enabled", "true")
                 .set("spark.dynamicAllocation.minExecutors", "1")
                 .set("spark.dynamicAllocation.maxExecutors", "20");
