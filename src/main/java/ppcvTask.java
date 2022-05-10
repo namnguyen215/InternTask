@@ -20,9 +20,10 @@ public class ppcvTask {
                 .set("spark.shuffle.service.enabled","true")
                 .set("spark.dynamicAllocation.minExecutors", "1")
                 .set("spark.dynamicAllocation.maxExecutors", "20");
-        SparkSession spark = SparkSession.builder().config(sparkConf).master("yarn").getOrCreate();
+        SparkSession spark = SparkSession.builder().config(sparkConf).master("local").getOrCreate();
         spark.sparkContext().setLogLevel("ERROR");
-        Dataset<Row> df = spark.read().format("parquet").load("hdfs:/DataIntern2022/data/ppcv/*");
+//        Dataset<Row> df = spark.read().format("parquet").load("hdfs:/DataIntern2022/data/ppcv/*");
+        Dataset<Row> df = spark.read().format("parquet").load("src/main/resources/ppcv");
         //Lấy top 5 domain có số lượng GUID nhiều nhất.
         Dataset<Row> res1 = df
                 .select(col("domain").cast("String"),col("guid"))
@@ -33,9 +34,9 @@ public class ppcvTask {
         res1=res1.withColumnRenamed("count(guid)","Numbers of guid");
         res1.show(false);
         //Lấy top 5 vị trí địa lý có nhiều GUID truy cập nhất. Vị trí địa lý sử dụng trường locid >1.
-        Dataset<Row> res2 = df
-                .select(col("domain").cast("String"),col("guid"))
-                .groupBy(col("domain"))
+        Dataset<Row> res2=df.filter("locid>1")
+                .select(col("locid"),col("guid"))
+                .groupBy(col("locid"))
                 .agg(count("guid"))
                 .orderBy(col("count(guid)").desc())
                 .limit(5);
