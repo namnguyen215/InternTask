@@ -10,9 +10,9 @@
 #    --conf spark.dynamicAllocation.initialExecutors=10 \
 #    target/InternTask-1.0-SNAPSHOT.jar
 spark-submit --class ppcvTask\
-    --driver-cores 2 \
+    --driver-cores 1 \
     --driver-memory 2G \
-    --num-executors 3 \
+    --num-executors 2 \
     --executor-cores 1 \
     --executor-memory 2G \
     target/InternTask-1.0-SNAPSHOT.jar
