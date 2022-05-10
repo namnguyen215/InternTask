@@ -12,7 +12,7 @@
 spark-submit --class ppcvTask\
     --driver-cores 2 \
     --driver-memory 2G \
-    --num-executors 5 \
-    --executor-cores 2 \
+    --num-executors 3 \
+    --executor-cores 1 \
     --executor-memory 2G \
     target/InternTask-1.0-SNAPSHOT.jar
