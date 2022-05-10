@@ -1,5 +1,5 @@
 spark-submit --class ppcvTask\
-    --master yarn-cluster \
+    --master yarn \
     --driver-cores 2 \
     --driver-memory 2G \
     --num-executors 10 \
