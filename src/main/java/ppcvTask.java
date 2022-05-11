@@ -21,7 +21,7 @@ public class ppcvTask {
 //                .set("spark.dynamicAllocation.minExecutors", "1")
 //                .set("spark.dynamicAllocation.maxExecutors", "20");
         SparkSession spark = SparkSession.builder().master("yarn").getOrCreate();
-//        spark.sparkContext().setLogLevel("ERROR");
+        spark.sparkContext().setLogLevel("ERROR");
         Dataset<Row> df = spark.read().format("parquet").load("hdfs:/DataIntern2022/data/ppcv/*");
         //Lấy top 5 domain có số lượng GUID nhiều nhất.
         Dataset<Row> res1 = df
